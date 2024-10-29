@@ -4,11 +4,13 @@
   "description": "Transform a string of characters \"SUFIANE\" into a string of characters of the same size with a single unique character.  example: SSSSSSS.",
   "scripts": {
     "run": "tsx index.ts",
+    "lint": "prettier . --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sufiane <su.souissi@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "prettier": "3.3.3",
     "typescript": "5.6.3"
   },
   "dependencies": {
