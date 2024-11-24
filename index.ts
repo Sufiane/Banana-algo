@@ -1,15 +1,17 @@
 const stringToTransform = 'CONSISTENCY';
+const CONSONANTS_REGEX = /[bcdfghjklmnpqrstvwxyz]/gi
+const VOWELS_REGEX = /[aeiou]/gi
 
 const getStringConsonants = (str: string): string[] => {
-    return str.match(/[bcdfghjklmnpqrstvwxyz]/gi) || [];
+    return str.match(CONSONANTS_REGEX) || [];
 }
 
 const getStringVowels = (str: string): string[] => {
-    return str.match(/[aeiou]/gi) || [];
+    return str.match(VOWELS_REGEX) || [];
 }
 
 const getVowelsNumber = (str: string): number => {
-    return (str.match(/[aeiou]/gi) || []).length
+    return getStringVowels(str).length
 }
 
 const isStringSameCharacter = (str: string): boolean => {
