@@ -1,14 +1,14 @@
 const stringToTransform = 'CONSISTENCY';
 
-const getStringConsonnes = (str: string): string[] => {
+const getStringConsonants = (str: string): string[] => {
     return str.match(/[bcdfghjklmnpqrstvwxyz]/gi) || [];
 }
 
-const getStringVoyelles = (str: string): string[] => {
+const getStringVowels = (str: string): string[] => {
     return str.match(/[aeiou]/gi) || [];
 }
 
-const getVoyellesNumber = (str: string): number => {
+const getVowelsNumber = (str: string): number => {
     return (str.match(/[aeiou]/gi) || []).length
 }
 
@@ -38,7 +38,7 @@ const getMostRepeatedCharacter = (str: string): string => {
 const transformString = (str: string) => {
     let transformIterations = 0;
 
-    if (getVoyellesNumber(str) === 0) {
+    if (getVowelsNumber(str) === 0) {
         if (isStringSameCharacter(str)) {
             console.log(str);
             console.log(`0 seconde`);
@@ -52,42 +52,42 @@ const transformString = (str: string) => {
         return
     }
 
-    if (getVoyellesNumber(str) > str.length - getVoyellesNumber(str)) {
-        const consonne = getStringConsonnes(str);
+    if (getVowelsNumber(str) > str.length - getVowelsNumber(str)) {
+        const consonne = getStringConsonants(str);
         const mostRepeatedConsonne = getMostRepeatedCharacter(consonne.join(''));
 
         [...str].forEach((x) => {
-            if (x !== mostRepeatedConsonne && !getVoyellesNumber(x)) {
+            if (x !== mostRepeatedConsonne && !getVowelsNumber(x)) {
                 transformIterations = transformIterations + 2;
-            } else if (getVoyellesNumber(x)) {
+            } else if (getVowelsNumber(x)) {
                 transformIterations++;
             }
         });
 
         console.log(mostRepeatedConsonne.repeat(transformIterations));
         console.log(`${mostRepeatedConsonne.repeat(transformIterations).length} seconde`);
-    } else if (getVoyellesNumber(str) === str.length - getVoyellesNumber(str)) {
+    } else if (getVowelsNumber(str) === str.length - getVowelsNumber(str)) {
         [...str].forEach((x) => {
-            if (x !== getMostRepeatedCharacter(str) && getVoyellesNumber(x)) {
+            if (x !== getMostRepeatedCharacter(str) && getVowelsNumber(x)) {
                 transformIterations = transformIterations + 2;
-            } else if (x !== getMostRepeatedCharacter(str) && !getVoyellesNumber(x)) {
+            } else if (x !== getMostRepeatedCharacter(str) && !getVowelsNumber(x)) {
                 transformIterations++;
             }
         });
 
         console.log(getMostRepeatedCharacter(str).repeat(str.length));
         console.log(`${getMostRepeatedCharacter(str).repeat(transformIterations).length} seconde`);
-    } else if (getVoyellesNumber(str) === 0) {
+    } else if (getVowelsNumber(str) === 0) {
         console.log('a'.repeat(str.length));
         console.log(`${str.length} seconde`);
     } else {
-        const voyelles = getStringVoyelles(str);
+        const voyelles = getStringVowels(str);
         const maxVoyelle = getMostRepeatedCharacter(voyelles.join(''));
 
         [...str].forEach((x) => {
-            if (x !== maxVoyelle && getVoyellesNumber(x)) {
+            if (x !== maxVoyelle && getVowelsNumber(x)) {
                 transformIterations = transformIterations + 2;
-            } else if (!getVoyellesNumber(x)) {
+            } else if (!getVowelsNumber(x)) {
                 transformIterations++;
             }
         });
