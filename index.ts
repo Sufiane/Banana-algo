@@ -1,64 +1,100 @@
-const string = "SUFIANE";
-const countVoyelle = (str) => (str.match(/[aeiou]/gi) || []).length;
-const arrayVoyelle = (str) => str.match(/[aeiou]/gi) || [];
-const arrayConsonne = (str) => str.match(/[bcdfghjklmnpqrstvwxyz]/gi) || [];
-let i = 0;
+const stringToTransform = 'CONSISTENCY';
 
-if (countVoyelle(string) > string.length - countVoyelle(string)) {
-  const consonne = arrayConsonne(string);
-  const maxConsonne = maxCharacter(consonne.join(""));
-  [...string].forEach((x) => {
-    if (x !== maxConsonne && !countVoyelle(x)) {
-      i = i + 2;
-    } else if (countVoyelle(x)) {
-      i++;
-    }
-  });
-  console.log(maxConsonne.repeat(i));
-  console.log(`${maxConsonne.repeat(i).length} seconde`);
-} else if (countVoyelle(string) == string.length - countVoyelle(string)) {
-  [...string].forEach((x) => {
-    if (x !== maxCharacter(string) && countVoyelle(x)) {
-      i = i + 2;
-    } else if (x !== maxCharacter(string) && !countVoyelle(x)) {
-      i++;
-    }
-  });
-  console.log(maxCharacter(string).repeat(string.length));
-  console.log(`${maxCharacter(string).repeat(i).length} seconde`);
-} else if (countVoyelle(string) == 0) {
-  console.log("a".repeat(string.length));
-  console.log(`${string.length} seconde`);
-} else {
-  const voyelles = arrayVoyelle(string);
-  const maxVoyelle = maxCharacter(voyelles.join(""));
-  [...string].forEach((x) => {
-    if (x !== maxVoyelle && countVoyelle(x)) {
-      i = i + 2;
-    } else if (!countVoyelle(x)) {
-      i++;
-    }
-  });
-
-  console.log(maxVoyelle.repeat(i));
-  console.log(`${maxVoyelle.repeat(i).length} seconde`);
+const getStringConsonnes = (str: string): string[] => {
+    return str.match(/[bcdfghjklmnpqrstvwxyz]/gi) || [];
 }
 
-function maxCharacter(str) {
-  const charMap = {};
-  let max = 0,
-    maxChar = "";
-
-  for (let char of str) {
-    charMap[char] = charMap[char] + 1 || 1;
-  }
-
-  for (let char in charMap) {
-    if (charMap[char] > max) {
-      max = charMap[char];
-      maxChar = char;
-    }
-  }
-
-  return maxChar;
+const getStringVoyelles = (str: string): string[] => {
+    return str.match(/[aeiou]/gi) || [];
 }
+
+const getVoyellesNumber = (str: string): number => {
+    return (str.match(/[aeiou]/gi) || []).length
+}
+
+const isStringSameCharacter = (str: string): boolean => {
+    return new Set(str).size === 1
+}
+
+const getMostRepeatedCharacter = (str: string): string => {
+    const charMap: Record<string, number> = {};
+    let max = 0
+    let maxChar = '';
+
+    for (let char of str) {
+        charMap[char] = charMap[char] + 1 || 1;
+    }
+
+    for (let char in charMap) {
+        if (charMap[char] > max) {
+            max = charMap[char];
+            maxChar = char;
+        }
+    }
+
+    return maxChar;
+}
+
+const transformString = (str: string) => {
+    let transformIterations = 0;
+
+    if (getVoyellesNumber(str) === 0) {
+        if (isStringSameCharacter(str)) {
+            console.log(str);
+            console.log(`0 seconde`);
+
+            return
+        }
+
+        console.log('a'.repeat(str.length));
+        console.log(`${str.length} seconde`);
+
+        return
+    }
+
+    if (getVoyellesNumber(str) > str.length - getVoyellesNumber(str)) {
+        const consonne = getStringConsonnes(str);
+        const mostRepeatedConsonne = getMostRepeatedCharacter(consonne.join(''));
+
+        [...str].forEach((x) => {
+            if (x !== mostRepeatedConsonne && !getVoyellesNumber(x)) {
+                transformIterations = transformIterations + 2;
+            } else if (getVoyellesNumber(x)) {
+                transformIterations++;
+            }
+        });
+
+        console.log(mostRepeatedConsonne.repeat(transformIterations));
+        console.log(`${mostRepeatedConsonne.repeat(transformIterations).length} seconde`);
+    } else if (getVoyellesNumber(str) === str.length - getVoyellesNumber(str)) {
+        [...str].forEach((x) => {
+            if (x !== getMostRepeatedCharacter(str) && getVoyellesNumber(x)) {
+                transformIterations = transformIterations + 2;
+            } else if (x !== getMostRepeatedCharacter(str) && !getVoyellesNumber(x)) {
+                transformIterations++;
+            }
+        });
+
+        console.log(getMostRepeatedCharacter(str).repeat(str.length));
+        console.log(`${getMostRepeatedCharacter(str).repeat(transformIterations).length} seconde`);
+    } else if (getVoyellesNumber(str) === 0) {
+        console.log('a'.repeat(str.length));
+        console.log(`${str.length} seconde`);
+    } else {
+        const voyelles = getStringVoyelles(str);
+        const maxVoyelle = getMostRepeatedCharacter(voyelles.join(''));
+
+        [...str].forEach((x) => {
+            if (x !== maxVoyelle && getVoyellesNumber(x)) {
+                transformIterations = transformIterations + 2;
+            } else if (!getVoyellesNumber(x)) {
+                transformIterations++;
+            }
+        });
+
+        console.log(maxVoyelle.repeat(transformIterations));
+        console.log(`${maxVoyelle.repeat(transformIterations).length} seconde`);
+    }
+}
+
+transformString(stringToTransform)

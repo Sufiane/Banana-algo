@@ -5,6 +5,7 @@
   "scripts": {
     "run": "tsx index.ts",
     "lint": "prettier . --write",
+    "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sufiane <su.souissi@gmail.com>",
